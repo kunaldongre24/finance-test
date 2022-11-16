@@ -6,17 +6,19 @@ import {
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
   signOut,
-  sendEmailVerification,
+  setPersistence,
+  browserSessionPersistence,
+  inMemoryPersistence,
 } from "firebase/auth";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 const firebaseConfig = {
-  apiKey: "AIzaSyCbQI_7naKT-uJqKZPAzYhealvKllGU4Es",
-  authDomain: "fintech-63d82.firebaseapp.com",
-  projectId: "fintech-63d82",
-  storageBucket: "fintech-63d82.appspot.com",
-  messagingSenderId: "18324392682",
-  appId: "1:18324392682:web:13e64de4d2e40248c32593",
-  measurementId: "G-FDZYJG9MXS",
+  apiKey: "AIzaSyAMF564E5eB69A1sX9J2Otttx2AxMNIvAE",
+  authDomain: "fly247-f090e.firebaseapp.com",
+  projectId: "fly247-f090e",
+  storageBucket: "fly247-f090e.appspot.com",
+  messagingSenderId: "154944788931",
+  appId: "1:154944788931:web:05d7a6ba8e62715e5b8576",
+  measurementId: "G-P95GY8VS2R",
 };
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -34,26 +36,18 @@ const logInWithEmailAndPassword = async (email, password) => {
 const registerWithEmailAndPassword = async (
   name,
   email,
-  password,
-  sector,
-  bank,
-  city,
-  education,
-  experience
+  username,
+  password
 ) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const user = res.user;
     const response = await addDoc(collection(db, "users"), {
       uid: user.uid,
+      username,
       name,
       authProvider: "local",
       email,
-      sector,
-      bank,
-      city,
-      education,
-      experience,
     });
     // try {
     //   await sendEmailVerification(user);

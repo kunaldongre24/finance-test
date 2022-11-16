@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@800&display=swap');
+.scoreboard{
+    width:100%;
+    height:100px;
+    border:2px solid #9A9A9A;
+    display: flex;
+}
+.score{
+    height:100%;
+    width:60%;
+    background-color: #3A61A2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.live-run{
+    flex:1;
+    background-color: #3A61A2;
+    margin-left:5px;
+}
+.refresh-btn{
+    width:100px;
+    height:100%;
+    background-color: #3A61A2;
+    margin-left:5px;
+}
+.score-cnt{
+    color: #fff;
+    text-align: center;
+    line-height: 24 px;
+}
+
+.pr-box{
+    width:100%;
+    margin-top: 10px;    
+}
+.prbox-header{
+    background-color: #6E8FC9;
+    padding:5px;
+    color: #fff;
+    border:1px solid #062D6E;
+    border-bottom:none;
+}
+.prbox-body table{
+    margin: 0;
+    border-spacing: 0;
+    border:none;
+}       
+.prbox-body table th, td{
+    border:1px solid #062D6E;
+    background-color: #E9E9E9;
+    font-size: 13px;
+    text-align: center;
+    padding:10px;
+}
+.prbox-body table th{
+    font-size: 13px;
+}
+.prbox-body  th:first-child,.prbox-body th:last-child{
+    background: #49494A;
+    color:#fff;
+    padding:10px;
+
+}
+.prbox-body th:last-child{
+    padding: 0;
+}
+.prbox-body  th:first-child{
+    text-align: left;
+    width:49.5% 
+}
+.prbox-body td:nth-child(2),.prbox-body td:nth-child(3){
+background-color: #61ACDE;
+color:#fff;
+font-weight: bold;
+font-size: 16px;
+padding:0;
+}
+.prbox-body td:nth-child(3){
+    background-color: #F6B771;
+
+}
+.pd-10{
+    padding:5px!important;
+}
+.prbox-body td:first-child{
+    text-align: left;
+    background-color: #fff;
+}
+.prbox-body td:last-child{
+    padding:0;
+}
+.g-toss  td:first-child,.prbox-body td:last-child{
+    background: #88CA12;
+    color:#fff;
+}
+.odds-table tr td{
+    padding-top:20px;
+    padding-bottom: 20px;
+}
+.small{
+    font-size: 12px;
+    margin-top: 6px;
+}
+.bold-num{
+    font-family: 'Open Sans', sans-serif!important;
+
+}

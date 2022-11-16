@@ -3,9 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { auth, logInWithEmailAndPassword } from "../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import "../style/login.css";
+import "../style/register.css";
 import Spinner from "./Spinner";
 function Login() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, loading, error] = useAuthState(auth);
   const [isLoading, setLoading] = useState(false);
@@ -15,7 +16,9 @@ function Login() {
     e.preventDefault();
     setLoading(true);
     setError("");
-    const response = await logInWithEmailAndPassword(email, password);
+    const email = `${username}@fly777.in`;
+    const secure = `fly247${password}`;
+    const response = await logInWithEmailAndPassword(email, secure);
     if (response) {
       if (response.error) {
         const { error } = response;
@@ -41,18 +44,18 @@ function Login() {
   return (
     <div className="login">
       <form className="form-container" onSubmit={login}>
-        <div className="form-header">Sign Up</div>
+        <div className="form-header">Login</div>
         <div className="login__container">
           {err ? <div className="error-message">{err}</div> : ""}
 
           <div className="row-input">
-            <label>EMAIL</label>
+            <label>Username</label>
             <input
-              type="email"
+              type="text"
               className="input__textBox"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="E-mail Address"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Username"
             />
           </div>
           <div className="row-input">
@@ -68,16 +71,11 @@ function Login() {
           <button className="main__btn" type="submit">
             {isLoading ? <Spinner /> : "LOGIN"}
           </button>
-          <div>
-            <div className="login-button link">
-              <Link to="/register">Register</Link>
-            </div>
-          </div>
-          <div>
-            <div className="login-button link">
-              <Link to="/reset">Forgot Password</Link>
-            </div>
-          </div>
+        </div>
+        <div>
+          {/* <div className="login-button link">
+            <Link to="/register">Register</Link>
+          </div> */}
         </div>
       </form>
     </div>

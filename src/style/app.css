@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
-*{box-sizing:border-box;user-select: none;}
 body{
     margin:0;
     flex:1;
@@ -7,12 +6,31 @@ body{
     font-family:"Open Sans",sans-serif;
     scroll-behavior: smooth;
 }
+a{
+  cursor: pointer!important;
+}
 button{
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.flex__align{
+  display: flex;
+  color:#fff;
+  align-items: center;
 }
 
+svg{
+  fill:#fff;
+  transform:scale(0.8)
+}
+.svgBtn_text{
+  font-size: 16px;
+  margin-left: 10px;
+}
 header{
-    height:42px;
+    height:60px;
     background-color: #066ead;
     box-sizing: border-box;
     border-bottom: 1px solid rgba(0,0,0,0.12);
@@ -22,11 +40,10 @@ header{
 
 header button{
     border:none;
+    height:100%;
     background-color: transparent;
     padding:0 20px;
-    font-weight: bold;
-    font-size: 14px;
-    border-left: 1px solid rgba(255,255,255,0.2);
+    font-size: 20px;
     color:#fff;
     cursor: pointer;
 }
@@ -38,7 +55,6 @@ header button:hover{
 }
 header .right-menu{
     display: flex;
-    color:#fff;
     padding:0 5px
 }
 .mb15{
@@ -201,4 +217,13 @@ td textarea {
   }
   .container-x {
     margin-top: 10px;
+  }
+  @media (min-width: 1064px)
+{  .c-date {
+      width: 25%;
+  }}
+  @media (min-width: 992px){
+.c-date {
+    width: 16.66666667%;
+}
   }
