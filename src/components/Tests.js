@@ -124,9 +124,7 @@ function Tests() {
     subject_id,
     imageUrl,
     topic_id,
-    difficulty,
     test_id,
-    nature,
     index,
     solution,
     solutionImageUrl,
@@ -139,13 +137,11 @@ function Tests() {
       statement: statement,
       imageUrl: imageUrl ? imageUrl : "",
       topic_id: topic_id,
-      difficulty: difficulty,
       test_id: test_id,
       index: index,
-      nature: nature,
       correct: correct_option,
       solution: solution,
-      solutionImageUrl: solutionImageUrl,
+      solutionImageUrl: solutionImageUrl ? solutionImageUrl : "",
       created_on: Date.now(),
       last_update: Date.now(),
     }).catch((err) => console.error(err));
@@ -194,6 +190,8 @@ function Tests() {
       id: test.id,
       name: test.name,
       time: test.time,
+      isVisible: false,
+      isAvailable: false,
       class_id: test.class_id,
       created_on: Date.now(),
       last_update: Date.now(),
@@ -209,22 +207,13 @@ function Tests() {
           subject_id,
           imageUrl,
           topic_id,
-          difficulty,
-          nature,
           solution,
           solutionImageUrl,
         } = questions[i];
         const selectedOption = document.querySelector(
           `input[name="${questions[i].id}"]:checked`
         );
-        if (
-          selectedOption &&
-          chapter_id &&
-          subject_id &&
-          topic_id &&
-          difficulty &&
-          nature
-        ) {
+        if (selectedOption && chapter_id && subject_id && topic_id) {
           selected = selectedOption.value;
         } else {
           const t = query(collection(db, "tests"), where("id", "==", test.id));
@@ -258,9 +247,7 @@ function Tests() {
           subject_id,
           imageUrl,
           topic_id,
-          difficulty,
           test.id,
-          nature,
           i,
           solution,
           solutionImageUrl,
@@ -374,14 +361,7 @@ function Tests() {
     const solution = e.target.value;
     questions.filter((x) => x.id === id)[0].solution = solution;
   };
-  const setQuestionDifficulty = (e, id) => {
-    const difficulty = e.target.value;
-    questions.filter((x) => x.id === id)[0].difficulty = difficulty;
-  };
-  const setQuestionNature = (e, id) => {
-    const nature = e.target.value;
-    questions.filter((x) => x.id === id)[0].nature = nature;
-  };
+
   const setTestClass = (e) => {
     const classInfo = e.target.value;
     test.class_id = classInfo;
@@ -423,8 +403,6 @@ function Tests() {
       chapter_id,
       topic_id,
       imageUrl,
-      nature,
-      difficulty,
       test_id,
       solution,
       solutionImageUrl,
@@ -437,9 +415,7 @@ function Tests() {
       chapter_id,
       subject_id,
       imageUrl,
-      nature,
       topic_id,
-      difficulty,
       test_id,
       solution,
       solutionImageUrl,
@@ -617,10 +593,7 @@ function Tests() {
         : "",
       correct_option_id: coId,
       topic_id: question["Topic ID"] ? question["Topic ID"] : "",
-      difficulty: question["Difficulty Level"]
-        ? question["Difficulty Level"]
-        : "",
-      nature: question["Nature"] ? question["Nature"] : "",
+
       solution: question["Solution"],
       solutionImageUrl: question["Solution Image Link"],
       test_id: test.id,
@@ -820,32 +793,6 @@ function Tests() {
               />
             </div>
             <div className="flx-h sel-to">
-              <select
-                name="class"
-                onChange={(e) => {
-                  setQuestionNature(e, x.id);
-                }}
-                defaultValue={x.nature}
-              >
-                <option value="">Nature</option>
-
-                <option value="1">Theory</option>
-                <option value="2">Practical</option>
-              </select>
-              <select
-                name="class"
-                onChange={(e) => {
-                  setQuestionDifficulty(e, x.id);
-                }}
-                defaultValue={x.difficulty}
-              >
-                <option value="">Question Difficulty</option>
-
-                <option value="1">Easy</option>
-                <option value="2">Moderate</option>
-                <option value="3">Hard</option>
-              </select>
-
               {test.class_id ? (
                 <select
                   name="subject"

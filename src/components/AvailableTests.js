@@ -6,6 +6,9 @@ import {
   doc,
   setDoc,
   addDoc,
+  query,
+  where,
+  onSnapshot,
 } from "firebase/firestore";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import { db } from "../config/firebase";
@@ -15,6 +18,7 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 function AvailableTests() {
   const [tests, setTests] = useState([]);
+  const [did, setDid] = useState();
   const [loading, setLoading] = useState(true);
   const [testMenu, setTestMenu] = useState(0);
   const [renameId, setRenameId] = useState(0);
@@ -65,18 +69,34 @@ function AvailableTests() {
   const DeleteTest = async (id) => {
     setDeleting(true);
     let request = await deleteDoc(doc(db, "tests", id));
+    const myCollection = collection(db, "questions");
+    const mycollectionQuery = query(myCollection, where("test_id", "==", did));
+    onSnapshot(mycollectionQuery, (myCollectionSnapshot) => {
+      myCollectionSnapshot.forEach((doc) => {
+        deleteDoc(doc(db, doc.ref));
+      });
+    });
+    const options = collection(db, "options");
+    const optionsQuery = query(options, where("test_id", "==", did));
+    onSnapshot(optionsQuery, (optionsSnapshot) => {
+      optionsSnapshot.forEach((doc) => {
+        deleteDoc(doc(db, doc.ref));
+      });
+    });
+
     fetchTests();
     setDeleteId(0);
   };
   const fetchTests = async () => {
     const data = await getDocs(collection(db, "tests"));
-    setTests(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    setTests(data.docs.map((doc) => ({ ...doc.data(), oid: doc.id })));
     setLoading(false);
     setRenaming(false);
     setDeleting(false);
     setShowRenameModal(false);
     setShowFileModal(false);
   };
+  console.log(tests);
   if (loading) {
     return (
       <div className="centerSpin">
@@ -180,7 +200,7 @@ function AvailableTests() {
                     DeleteTest(deleteId);
                   }}
                 >
-                  {deleting ? <Spinner /> : "Delete"}{" "}
+                  {deleting ? <Spinner /> : "Delete"}
                 </button>
               </div>
             </div>
@@ -201,7 +221,7 @@ function AvailableTests() {
                 id={`${testMenu}tm`}
                 className="test-menu"
                 style={
-                  testMenu === test.id
+                  testMenu === test.oid
                     ? { display: "block" }
                     : { display: "none" }
                 }
@@ -209,7 +229,7 @@ function AvailableTests() {
                 <button
                   className="list-t tr-btn"
                   onClick={() => {
-                    setRenameId(test.id);
+                    setRenameId(test.oid);
                     setShowRenameModal(true);
                     setTestMenu(0);
                   }}
@@ -226,12 +246,12 @@ function AvailableTests() {
                 <button
                   className="list-t tr-btn"
                   onClick={() => {
-                    setDeleteId(test.id);
+                    setDid(test.id);
+                    setDeleteId(test.oid);
                     setShowFileModal(true);
                     setTestMenu(0);
                   }}
                 >
-                  {" "}
                   <DeleteOutlineIcon
                     style={{
                       marginRight: 15,
@@ -243,7 +263,10 @@ function AvailableTests() {
               </div>
               <div className="headlist">
                 {test.name ? test.name : "Untitled Test"}
-                <button className="tr-btn" onClick={() => setTestMenu(test.id)}>
+                <button
+                  className="tr-btn"
+                  onClick={() => setTestMenu(test.oid)}
+                >
                   <MoreHorizIcon
                     className="moreicon"
                     style={{

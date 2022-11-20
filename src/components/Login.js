@@ -41,7 +41,7 @@ function Login() {
   return (
     <div className="login">
       <form className="form-container" onSubmit={login}>
-        <div className="form-header">Sign Up</div>
+        <div className="form-header">Sign In </div>
         <div className="login__container">
           {err ? <div className="error-message">{err}</div> : ""}
 
