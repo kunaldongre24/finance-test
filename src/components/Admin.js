@@ -1,3 +1,5 @@
+//Admin.js
+
 import React, { useEffect, useState } from "react";
 import "../style/test.css";
 import { useAuthState } from "react-firebase-hooks/auth";
