@@ -46,7 +46,7 @@ function Tests() {
   const [test, setTest] = useState({});
   const [saveLoader, setSaveLoader] = useState(false);
   const [errorFocus, setErrorFocus] = useState();
-
+  const [testName, setTestName] = useState("");
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.forEach((file) => {
       setFiles((oldArray) => [...oldArray, file]);
@@ -54,7 +54,7 @@ function Tests() {
   }, []);
   const changeTestName = (e) => {
     const name = e.target.value;
-    test.name = name;
+    setTestName(name);
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
@@ -187,9 +187,10 @@ function Tests() {
 
       return setErrorFocus(test.id);
     }
+    console.log(test);
     const res = await addDoc(collection(db, "tests"), {
       id: test.id,
-      name: test.name,
+      name: testName,
       time: test.time,
       isVisible: false,
       isAvailable: false,
@@ -386,6 +387,7 @@ function Tests() {
   const setTestTime = (e) => {
     const time = e.target.value;
     test.time = time;
+    setTest(test);
   };
   const removeImage = (id, type) => {
     if (type === 3) {
@@ -563,6 +565,7 @@ function Tests() {
     const oid3 = uuidv4();
     const oid4 = uuidv4();
     test.class_id = question["Class ID"];
+    setTest(test);
     setOptions((prev) => [
       ...prev,
       { id: oid1, statement: question["Option 1"], question_id: qid },
@@ -727,7 +730,7 @@ function Tests() {
                 placeholder="Test Name"
                 onBlur={() => checkName(test.id, 0)}
                 className="effect-2 bold-input"
-                defaultValue={test.name ? test.name : "Untitled Test"}
+                defaultValue={testName ? testName : "Untitled Test"}
               ></textarea>
               <span className="focus-border"></span>
             </div>

@@ -98,7 +98,9 @@ function Topics() {
     const name = document.getElementById("subtopic").value;
     const input = document.getElementById("subtopic");
     const button = document.getElementById("button");
-    const subject = document.getElementsByName("subject")[0].value;
+    const subject = filteredSubjects.length
+      ? document.getElementsByName("subject")[0].value
+      : 0;
     const chapter = filteredChapters.length
       ? document.getElementsByName("chapter")[0].value
       : 0;

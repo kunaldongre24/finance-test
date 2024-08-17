@@ -11,13 +11,13 @@ import {
 } from "firebase/auth";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 const firebaseConfig = {
-  apiKey: "AIzaSyCbQI_7naKT-uJqKZPAzYhealvKllGU4Es",
-  authDomain: "fintech-63d82.firebaseapp.com",
-  projectId: "fintech-63d82",
-  storageBucket: "fintech-63d82.appspot.com",
-  messagingSenderId: "18324392682",
-  appId: "1:18324392682:web:13e64de4d2e40248c32593",
-  measurementId: "G-FDZYJG9MXS",
+  apiKey: "AIzaSyAAZyGu40uXwX0Emcq_xDDFzY6YWy2RsYA",
+  authDomain: "quiz-app-39d69.firebaseapp.com",
+  projectId: "quiz-app-39d69",
+  storageBucket: "quiz-app-39d69.appspot.com",
+  messagingSenderId: "313941201868",
+  appId: "1:313941201868:web:7ef3cb6fc73eea56eb0369",
+  measurementId: "G-82NVMHGWXX",
 };
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);

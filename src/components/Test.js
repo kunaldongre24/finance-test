@@ -210,14 +210,7 @@ function Test(props) {
       setImageLoading(false);
     }
   };
-  const uploadQuestion = async (
-    question_id,
-    topic,
-    index,
-    nature,
-    difficulty,
-    selectedOption
-  ) => {
+  const uploadQuestion = async (question_id, topic, index, selectedOption) => {
     const mapId = uuidv4();
     const res = await addDoc(collection(db, "userQuestionMap"), {
       id: mapId,
@@ -226,8 +219,6 @@ function Test(props) {
       question_id: question_id,
       index: index,
       topic: topic,
-      nature: nature,
-      difficulty: difficulty,
       selectedOption,
       created_on: Date.now(),
       last_update: Date.now(),
@@ -254,8 +245,6 @@ function Test(props) {
         questions[i].id,
         questions[i].topic_id,
         questions[i].index,
-        questions[i].nature,
-        questions[i].difficulty,
         selected
       );
     }
